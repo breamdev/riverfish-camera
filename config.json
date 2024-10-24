@@ -1,0 +1,12 @@
+{
+    "camera_size": [ 1920, 1080 ],
+    "framerate": 20,
+    "rate": 48000,
+    "chunk": 512,
+    "microphone_id": 1,
+    "speaking_loudness": 350,
+    "images": {
+        "idle": "i.png",
+        "speaking": "s.png"
+    }
+}
