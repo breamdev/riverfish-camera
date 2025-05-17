@@ -1,12 +1,16 @@
 {
-    "camera_size": [ 1920, 1080 ],
+    "camera_size": [ 2560, 1440 ],
     "framerate": 20,
     "rate": 48000,
     "chunk": 512,
     "microphone_id": 1,
-    "speaking_loudness": 350,
-    "images": {
-        "idle": "i.png",
-        "speaking": "s.png"
-    }
+    "folder": "default",
+    "image_values": [
+        {"loudness": 10, "file": "i.png"},
+        {"loudness": 150, "file": "s1.png"},
+        {"loudness": 300, "file": "s2.png"},
+        {"loudness": 450, "file": "s3.png"},
+        {"loudness": 650, "file": "s4.png"},
+        {"loudness": 2000, "file": "s5.png"}
+    ]
 }

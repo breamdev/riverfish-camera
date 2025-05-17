@@ -5,13 +5,16 @@ from PIL import Image
 import pyaudio, json
 
 config = json.loads(open("config.json", "r").read())
-images = { 
-          key: np.asarray(Image.open(path).convert('RGBA').resize( tuple(config['camera_size']) ) ) for key, path in config['images'].items()
-        }
+images = []
+
+# ебучйиййй МИКРОФОН И РАЗЪ5М
+
+images = config["image_values"]
+for value in images: value["file"] = np.asarray(Image.open( value["file"] ).convert('RGBA').resize( tuple(config['camera_size']) ) )
 
 # Getting loudness function from PWFace
 def get_loudness(stream_local):
-    data = stream_local.read(1024 * 3)
+    data =  stream_local.read(1024 * 3)
     numpy_data = np.frombuffer(data, dtype=np.int16)
     volume = np.abs(numpy_data).mean()
     return volume
@@ -39,10 +42,10 @@ with Camera(width=config['camera_size'][0], height=config['camera_size'][1], fps
             backend="unitycapture", fmt=PixelFormat.RGBA, ) as cam:
     while True:
         loudness = get_loudness(stream)
-        if loudness >= config['speaking_loudness']: # If user is speaking 
-            cam.send(images['speaking']) # Send speaking face
-        else:
-            cam.send(images['idle']) # Send idle face
+        image_value = min(images, key=lambda x:abs(x["loudness"]-loudness))
+        
+        cam.send(image_value["file"])
         cam.sleep_until_next_frame()
 
 # Developed by Bream.
+# the most legendary fish
